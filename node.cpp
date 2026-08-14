@@ -5,7 +5,7 @@
 Node::Node(const std::string& id)
     : id(id), state(logicstate::floating), voltage(0.0f) {}
 
-void Node::addpin(Pin* pin) {
+void Node::add_pin(Pin* pin) {
     if (pin == nullptr) {
         return;
     }
@@ -15,11 +15,11 @@ void Node::addpin(Pin* pin) {
     }
 }
 
-void Node::removepin(Pin* pin) {
+void Node::remove_pin(Pin* pin) {
     pins.erase(std::remove(pins.begin(), pins.end(), pin), pins.end());
 }
 
-void Node::calculatestate() {
+void Node::calculate_state() {
     if (pins.empty()) {
         state = logicstate::floating;
         voltage = 0.0f;
@@ -33,7 +33,7 @@ void Node::calculatestate() {
             continue;
         }
 
-        logicstate pstate = pin->getState();
+        logicstate pstate = pin->get_state();
 
         if (pstate == logicstate::floating) {
             continue;
@@ -49,10 +49,10 @@ void Node::calculatestate() {
     }
 
     state = foundstate;
-    voltage = getvoltage();
+    voltage = get_voltage();
 }
 
-float Node::getvoltage() const {
+float Node::get_voltage() const {
     if (state == logicstate::high) {
         return 5.0f;
     }
@@ -63,23 +63,23 @@ float Node::getvoltage() const {
     return 0.0f;
 }
 
-std::string Node::getid() const {
+std::string Node::get_id() const {
     return id;
 }
 
-void Node::setid(const std::string& newid) {
-    id = newid;
+void Node::set_id(const std::string& new_id) {
+    id = new_id;
 }
 
-std::vector<Pin*> Node::getpins() const {
+std::vector<Pin*> Node::get_pins() const {
     return pins;
 }
 
-logicstate Node::getstate() const {
+logicstate Node::get_state() const {
     return state;
 }
 
-void Node::setstate(logicstate newstate) {
-    state = newstate;
-    voltage = getvoltage();
+void Node::set_state(logicstate new_state) {
+    state = new_state;
+    voltage = get_voltage();
 }

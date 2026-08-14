@@ -11,28 +11,40 @@ private:
     std::string name;
     vector2d position;
     logicstate state;
-    float sensitivityRadius;
+    float sensitivity_radius;
     bool highlighted;
 
 public:
+    // pin jadid misaze
     Pin(const std::string& name, const vector2d& position);
 
-    bool isMouseOver(const vector2d& mousePos) const;
+    // check mikone mouse ro pin hast
+    bool is_mouse_over(const vector2d& mouse_pos) const;
 
-    std::string getName() const;
-    void setName(const std::string& newName);
+    // name ro mide
+    std::string get_name() const;
+    // name ro avaz mikone
+    void set_name(const std::string& new_name);
 
-    vector2d getPosition() const;
-    void setPosition(const vector2d& newPosition);
+    // position ro mide
+    vector2d get_position() const;
+    // position ro avaz mikone
+    void set_position(const vector2d& new_position);
 
-    logicstate getState() const;
-    void setState(logicstate newState);
+    // state ro mide
+    logicstate get_state() const;
+    // state ro avaz mikone
+    void set_state(logicstate new_state);
 
-    float getSensitivityRadius() const;
-    void setSensitivityRadius(float newRadius);
+    // shoa hasasiyat ro mide
+    float get_sensitivity_radius() const;
+    // shoa hasasiyat ro avaz mikone
+    void set_sensitivity_radius(float new_radius);
 
-    bool isHighlighted() const;
-    void setHighlighted(bool value);
+    // mige highlight hast ya na
+    bool is_highlighted() const;
+    // highlight ro avaz mikone
+    void set_highlighted(bool value);
 };
 
 #endif

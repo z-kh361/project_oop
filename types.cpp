@@ -2,10 +2,10 @@
 
 #include <cmath>
 
-vector2d::vector2d(float xvalue, float yvalue)
-    : x(xvalue), y(yvalue) {}
+vector2d::vector2d(float x_value, float y_value)
+    : x(x_value), y(y_value) {}
 
-float vector2d::distanceto(const vector2d& other) const {
+float vector2d::distance_to(const vector2d& other) const {
     const float dx = x - other.x;
     const float dy = y - other.y;
 

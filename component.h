@@ -16,47 +16,70 @@ protected:
     std::vector<Pin> pins;
     bool selected;
     int rotation;
-    bool flippedh;
-    bool flippedv;
+    bool flip_h;
+    bool flip_v;
 
 public:
+    // component jadid misaze
     Component(const std::string& name,
               const std::string& type,
               const vector2d& position);
 
     virtual ~Component() = default;
 
-    virtual void updatepins();
-    virtual std::string getdisplayname() const;
-    virtual std::vector<std::string> getpropertynames() const;
-    virtual std::string getproperty(const std::string& key) const;
-    virtual void setproperty(const std::string& key, const std::string& value);
+    // pin ha ro update mikone
+    virtual void update_pins();
+    // esme namayeshi ro mide
+    virtual std::string get_display_name() const;
+    // list property ha ro mide
+    virtual std::vector<std::string> get_property_names() const;
+    // meghdar property ro mide
+    virtual std::string get_property(const std::string& key) const;
+    // property ro avaz mikone
+    virtual void set_property(const std::string& key, const std::string& value);
 
+    // entekhab mikone
     void select();
+    // az entekhab dar miyare
     void deselect();
 
-    std::string getname() const;
-    void setname(const std::string& newname);
+    // name ro mide
+    std::string get_name() const;
+    // name ro avaz mikone
+    void set_name(const std::string& new_name);
 
-    std::string gettype() const;
-    void settype(const std::string& newtype);
+    // type ro mide
+    std::string get_type() const;
+    // type ro avaz mikone
+    void set_type(const std::string& new_type);
 
-    vector2d getposition() const;
-    void setposition(const vector2d& newposition);
+    // position ro mide
+    vector2d get_position() const;
+    // position ro avaz mikone
+    void set_position(const vector2d& new_position);
 
-    std::vector<Pin>& getpins();
-    const std::vector<Pin>& getpins() const;
+    // pin ha ro mide
+    std::vector<Pin>& get_pins();
+    // pin ha ro readonly mide
+    const std::vector<Pin>& get_pins() const;
 
-    bool isselected() const;
+    // mige selected hast ya na
+    bool is_selected() const;
 
-    int getrotation() const;
-    void setrotation(int newrotation);
+    // rotation ro mide
+    int get_rotation() const;
+    // rotation ro avaz mikone
+    void set_rotation(int new_rotation);
 
-    bool isflippedh() const;
-    void setflippedh(bool value);
+    // mige flip horizontal hast ya na
+    bool is_flip_h() const;
+    // flip horizontal ro avaz mikone
+    void set_flip_h(bool value);
 
-    bool isflippedv() const;
-    void setflippedv(bool value);
+    // mige flip vertical hast ya na
+    bool is_flip_v() const;
+    // flip vertical ro avaz mikone
+    void set_flip_v(bool value);
 };
 
 #endif

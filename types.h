@@ -14,9 +14,11 @@ struct vector2d {
     float x;
     float y;
 
-    vector2d(float xvalue = 0.0f, float yvalue = 0.0f);
+    // noghte ro misaze
+    vector2d(float x_value = 0.0f, float y_value = 0.0f);
 
-    float distanceto(const vector2d& other) const;
+    // fasele ta noghte dige
+    float distance_to(const vector2d& other) const;
 };
 
 // Simple RGB color.
@@ -26,6 +28,7 @@ public:
     int g;
     int b;
 
+    // rang ro misaze
     color(int red = 0, int green = 0, int blue = 0);
 
     static const color red;

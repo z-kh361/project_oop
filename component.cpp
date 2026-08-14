@@ -8,22 +8,22 @@ Component::Component(const std::string& name,
       position(position),
       selected(false),
       rotation(0),
-      flippedh(false),
-      flippedv(false) {}
+      flip_h(false),
+      flip_v(false) {}
 
-void Component::updatepins() {
-    // Child classes can update pin positions here.
+void Component::update_pins() {
+    // class haye badi pin ha ro inja update mikonan
 }
 
-std::string Component::getdisplayname() const {
+std::string Component::get_display_name() const {
     return name;
 }
 
-std::vector<std::string> Component::getpropertynames() const {
-    return {"name", "type", "x", "y", "rotation", "flippedh", "flippedv"};
+std::vector<std::string> Component::get_property_names() const {
+    return {"name", "type", "x", "y", "rotation", "flip_h", "flip_v"};
 }
 
-std::string Component::getproperty(const std::string& key) const {
+std::string Component::get_property(const std::string& key) const {
     if (key == "name") {
         return name;
     }
@@ -39,17 +39,17 @@ std::string Component::getproperty(const std::string& key) const {
     if (key == "rotation") {
         return std::to_string(rotation);
     }
-    if (key == "flippedh") {
-        return flippedh ? "true" : "false";
+    if (key == "flip_h") {
+        return flip_h ? "true" : "false";
     }
-    if (key == "flippedv") {
-        return flippedv ? "true" : "false";
+    if (key == "flip_v") {
+        return flip_v ? "true" : "false";
     }
 
     return "";
 }
 
-void Component::setproperty(const std::string& key, const std::string& value) {
+void Component::set_property(const std::string& key, const std::string& value) {
     if (key == "name") {
         name = value;
     } else if (key == "type") {
@@ -59,11 +59,11 @@ void Component::setproperty(const std::string& key, const std::string& value) {
     } else if (key == "y") {
         position.y = std::stof(value);
     } else if (key == "rotation") {
-        setrotation(std::stoi(value));
-    } else if (key == "flippedh") {
-        flippedh = (value == "true" || value == "1");
-    } else if (key == "flippedv") {
-        flippedv = (value == "true" || value == "1");
+        set_rotation(std::stoi(value));
+    } else if (key == "flip_h") {
+        flip_h = (value == "true" || value == "1");
+    } else if (key == "flip_v") {
+        flip_v = (value == "true" || value == "1");
     }
 }
 
@@ -75,66 +75,66 @@ void Component::deselect() {
     selected = false;
 }
 
-std::string Component::getname() const {
+std::string Component::get_name() const {
     return name;
 }
 
-void Component::setname(const std::string& newname) {
-    name = newname;
+void Component::set_name(const std::string& new_name) {
+    name = new_name;
 }
 
-std::string Component::gettype() const {
+std::string Component::get_type() const {
     return type;
 }
 
-void Component::settype(const std::string& newtype) {
-    type = newtype;
+void Component::set_type(const std::string& new_type) {
+    type = new_type;
 }
 
-vector2d Component::getposition() const {
+vector2d Component::get_position() const {
     return position;
 }
 
-void Component::setposition(const vector2d& newposition) {
-    position = newposition;
-    updatepins();
+void Component::set_position(const vector2d& new_position) {
+    position = new_position;
+    update_pins();
 }
 
-std::vector<Pin>& Component::getpins() {
+std::vector<Pin>& Component::get_pins() {
     return pins;
 }
 
-const std::vector<Pin>& Component::getpins() const {
+const std::vector<Pin>& Component::get_pins() const {
     return pins;
 }
 
-bool Component::isselected() const {
+bool Component::is_selected() const {
     return selected;
 }
 
-int Component::getrotation() const {
+int Component::get_rotation() const {
     return rotation;
 }
 
-void Component::setrotation(int newrotation) {
-    rotation = ((newrotation % 360) + 360) % 360;
-    updatepins();
+void Component::set_rotation(int new_rotation) {
+    rotation = ((new_rotation % 360) + 360) % 360;
+    update_pins();
 }
 
-bool Component::isflippedh() const {
-    return flippedh;
+bool Component::is_flip_h() const {
+    return flip_h;
 }
 
-void Component::setflippedh(bool value) {
-    flippedh = value;
-    updatepins();
+void Component::set_flip_h(bool value) {
+    flip_h = value;
+    update_pins();
 }
 
-bool Component::isflippedv() const {
-    return flippedv;
+bool Component::is_flip_v() const {
+    return flip_v;
 }
 
-void Component::setflippedv(bool value) {
-    flippedv = value;
-    updatepins();
+void Component::set_flip_v(bool value) {
+    flip_v = value;
+    update_pins();
 }

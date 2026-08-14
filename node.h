@@ -16,21 +16,31 @@ private:
     float voltage;
 
 public:
+    // node jadid misaze
     explicit Node(const std::string& id);
 
-    void addpin(Pin* pin);
-    void removepin(Pin* pin);
-    void calculatestate();
+    // pin ezafe mikone
+    void add_pin(Pin* pin);
+    // pin ro hazf mikone
+    void remove_pin(Pin* pin);
+    // state node ro hesab mikone
+    void calculate_state();
 
-    float getvoltage() const;
+    // voltage ro mide
+    float get_voltage() const;
 
-    std::string getid() const;
-    void setid(const std::string& newid);
+    // id ro mide
+    std::string get_id() const;
+    // id ro avaz mikone
+    void set_id(const std::string& new_id);
 
-    std::vector<Pin*> getpins() const;
+    // pin ha ro mide
+    std::vector<Pin*> get_pins() const;
 
-    logicstate getstate() const;
-    void setstate(logicstate newstate);
+    // state ro mide
+    logicstate get_state() const;
+    // state ro avaz mikone
+    void set_state(logicstate new_state);
 };
 
 #endif
