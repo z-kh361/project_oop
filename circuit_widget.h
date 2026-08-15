@@ -23,6 +23,12 @@ private:
     QPoint view_offset_;
     bool is_panning_;
     QPoint pan_start_;
+    bool is_dragging_;
+    Component* dragged_component_;
+    QPoint drag_offset_;
+    bool is_selecting_;
+    QPoint selection_start_;
+    QPoint selection_end_;
 
 protected:
     // Redraws the canvas.
@@ -50,14 +56,17 @@ public:
     // circuit ro set mikone
     void set_circuit(Circuit* circuit);
 
-    // grid ro mikoshe
+    // grid ro mikeshe
     void draw_grid(QPainter& painter);
 
-    // component ro mikoshe
+    // component ro mikeshe
     void draw_component(QPainter& painter, Component* comp);
 
-    // pin ro mikoshe
+    // pin ro mikeshe
     void draw_pin(QPainter& painter, Pin& pin);
+
+    // selection rectangle ro mikeshe
+    void draw_selection_rect(QPainter& painter);
 
     // world ro screen mikone
     QPoint world_to_screen(const vector2d& world_pos) const;
