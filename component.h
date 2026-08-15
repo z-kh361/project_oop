@@ -37,6 +37,8 @@ public:
     virtual std::string get_property(const std::string& key) const;
     // property ro avaz mikone
     virtual void set_property(const std::string& key, const std::string& value);
+    // check mikone point dakhele component hast
+    virtual bool contains_point(const vector2d& point) const;
 
     // entekhab mikone
     void select();

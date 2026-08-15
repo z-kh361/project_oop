@@ -67,6 +67,13 @@ void Component::set_property(const std::string& key, const std::string& value) {
     }
 }
 
+bool Component::contains_point(const vector2d& point) const {
+    return point.x >= position.x - 30.0f &&
+           point.x <= position.x + 30.0f &&
+           point.y >= position.y - 15.0f &&
+           point.y <= position.y + 15.0f;
+}
+
 void Component::select() {
     selected = true;
 }
