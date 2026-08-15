@@ -20,6 +20,7 @@ CircuitWidget::CircuitWidget(QWidget* parent)
     setWindowTitle("Circuit Simulator");
     resize(800, 600);
     setMouseTracking(true);
+    setFocusPolicy(Qt::StrongFocus);
 
     connect(timer_, &QTimer::timeout, this, [this]() {
         update();
@@ -60,6 +61,8 @@ void CircuitWidget::paintEvent(QPaintEvent* event) {
 }
 
 void CircuitWidget::mousePressEvent(QMouseEvent* event) {
+    setFocus();
+
     if (event->button() == Qt::MiddleButton) {
         is_panning_ = true;
         pan_start_ = event->position().toPoint();
@@ -80,10 +83,14 @@ void CircuitWidget::mousePressEvent(QMouseEvent* event) {
         }
 
         vector2d comp_pos = comp->get_position();
-        bool inside_component = world_pos.x >= comp_pos.x - 20.0f &&
-                                world_pos.x <= comp_pos.x + 20.0f &&
-                                world_pos.y >= comp_pos.y - 15.0f &&
-                                world_pos.y <= comp_pos.y + 15.0f;
+        bool rotated_sideways = comp->get_rotation() == 90 ||
+                                comp->get_rotation() == 270;
+        float half_w = rotated_sideways ? 15.0f : 20.0f;
+        float half_h = rotated_sideways ? 20.0f : 15.0f;
+        bool inside_component = world_pos.x >= comp_pos.x - half_w &&
+                                world_pos.x <= comp_pos.x + half_w &&
+                                world_pos.y >= comp_pos.y - half_h &&
+                                world_pos.y <= comp_pos.y + half_h;
 
         if (inside_component) {
             clicked_component = comp;
@@ -172,6 +179,24 @@ void CircuitWidget::mouseReleaseEvent(QMouseEvent* event) {
     }
 }
 
+void CircuitWidget::keyPressEvent(QKeyEvent* event) {
+    if (event->key() != Qt::Key_R || circuit_ == nullptr) {
+        QWidget::keyPressEvent(event);
+        return;
+    }
+
+    for (Component* comp : circuit_->get_components()) {
+        if (comp != nullptr && comp->is_selected()) {
+            comp->rotate();
+            update();
+            event->accept();
+            return;
+        }
+    }
+
+    QWidget::keyPressEvent(event);
+}
+
 void CircuitWidget::wheelEvent(QWheelEvent* event) {
     if (event->angleDelta().y() > 0) {
         zoom_level_ *= 1.1f;
@@ -218,15 +243,21 @@ void CircuitWidget::draw_component(QPainter& painter, Component* comp) {
     QPoint center = world_to_screen(comp->get_position());
     int body_w = static_cast<int>(40.0f * zoom_level_);
     int body_h = static_cast<int>(30.0f * zoom_level_);
-    QRect body(center.x() - body_w / 2, center.y() - body_h / 2, body_w, body_h);
+    QRect body(-body_w / 2, -body_h / 2, body_w, body_h);
 
+    painter.save();
+    painter.translate(center);
+    painter.rotate(comp->get_rotation());
     painter.setBrush(Qt::white);
     painter.setPen(QPen(comp->is_selected() ? QColor(30, 120, 220) : QColor(120, 120, 120),
                         comp->is_selected() ? 3 : 2));
     painter.drawRect(body);
+    painter.restore();
 
     painter.setPen(QPen(QColor(20, 20, 20), 1));
-    painter.drawText(body.x(), body.y() - 6, QString::fromStdString(comp->get_display_name()));
+    painter.drawText(center.x() - body_w / 2,
+                     center.y() - body_h / 2 - 6,
+                     QString::fromStdString(comp->get_display_name()));
 
     for (Pin& pin : comp->get_pins()) {
         draw_pin(painter, pin);

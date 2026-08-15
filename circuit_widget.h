@@ -10,6 +10,7 @@
 #include <QPaintEvent>
 #include <QPainter>
 #include <QPoint>
+#include <QKeyEvent>
 #include <QTimer>
 #include <QWheelEvent>
 #include <QWidget>
@@ -42,6 +43,9 @@ protected:
 
     // Stops panning.
     void mouseReleaseEvent(QMouseEvent* event) override;
+
+    // Handles keyboard shortcuts.
+    void keyPressEvent(QKeyEvent* event) override;
 
     // Handles zoom.
     void wheelEvent(QWheelEvent* event) override;

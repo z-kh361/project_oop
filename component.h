@@ -72,6 +72,8 @@ public:
     int get_rotation() const;
     // rotation ro avaz mikone
     void set_rotation(int new_rotation);
+    // 90 daraje micharkhoone
+    void rotate();
 
     // mige flip horizontal hast ya na
     bool is_flip_h() const;

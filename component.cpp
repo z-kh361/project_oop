@@ -124,8 +124,13 @@ int Component::get_rotation() const {
 }
 
 void Component::set_rotation(int new_rotation) {
-    rotation = ((new_rotation % 360) + 360) % 360;
+    int normalized_rotation = ((new_rotation % 360) + 360) % 360;
+    rotation = (normalized_rotation / 90) * 90;
     update_pins();
+}
+
+void Component::rotate() {
+    set_rotation(rotation + 90);
 }
 
 bool Component::is_flip_h() const {
